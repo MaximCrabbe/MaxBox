@@ -10,6 +10,8 @@ namespace MaxBox.Core.Services
             string allowedCharacters = "";
             if (alphabetical == false && numeric == false && specialchars == false)
                 throw new ArgumentException("Atleast 1 parameter boolean has to be true.");
+            if(length<1)
+                throw new ArgumentException("Stringlength must atleast be 1 or higher.");
 
             if (alphabetical)
                 allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
