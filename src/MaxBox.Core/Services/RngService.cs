@@ -2,7 +2,8 @@
 
 namespace MaxBox.Core.Services
 {
-    public class StringService : IStringService
+    [CLSCompliant(true)]
+    public class RngService : IRngService
     {
         private readonly Random _rng = new Random();
         public string GenerateString(int length, bool alphabetical = true, bool numeric = true, bool specialchars = false)

@@ -6,12 +6,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MaxBox.Test.Services
 {
     [TestClass]
-    public class StringServiceUnitTest
+    public class RngServiceUnitTest
     {
         [TestMethod]
         public void GenerateString()
         {
-            var service = new StringService();
+            var service = new RngService();
             
             var tenlengthstring = service.GenerateString(10);
             Assert.AreEqual(tenlengthstring.Count(), 10);

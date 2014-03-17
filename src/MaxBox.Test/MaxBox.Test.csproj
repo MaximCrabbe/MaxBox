@@ -50,15 +50,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Services\StringService.cs" />
+    <Compile Include="Helpers\AssemblyHelper.cs" />
+    <Compile Include="Services\RngService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MaxBox.Test.AssemblyDummy\MaxBox.Test.AssemblyDummy.csproj">
+      <Project>{fa976b64-f0e9-425f-9db8-56757d515674}</Project>
+      <Name>MaxBox.Test.AssemblyDummy</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MaxBox.Core\MaxBox.Core.csproj">
       <Project>{d946bbe6-4202-4c4e-9602-88b18d86fe13}</Project>
       <Name>MaxBox.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
