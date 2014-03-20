@@ -11,5 +11,6 @@ namespace MaxBox.Core.Models
         public string To { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
+        public bool AllowHtml { get; set; }
     }
 }

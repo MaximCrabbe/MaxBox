@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="Helpers\AssemblyHelper.cs" />
     <Compile Include="Helpers\Interface\IAssemblyHelper.cs" />
-    <Compile Include="Models\MailModel.cs" />
+    <Compile Include="Models\Mail\HotmailSmtpClient.cs" />
+    <Compile Include="Models\Mail\GmailSmtpClient.cs" />
+    <Compile Include="Models\Mail\MailModel.cs" />
     <Compile Include="Services\Interfaces\IMailService.cs" />
     <Compile Include="Services\Interfaces\IRngService.cs" />
     <Compile Include="Services\MailService.cs" />

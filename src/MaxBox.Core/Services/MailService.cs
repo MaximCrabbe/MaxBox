@@ -24,7 +24,14 @@ namespace MaxBox.Core.Services
             {
                throw new Exception("Please use the initialize method first to define a smtp client"); 
             }
-           _smtpClient.Send(mailModel.From, mailModel.To, mailModel.Subject, mailModel.Body);
+            if (mailModel.AllowHtml)
+            {
+                mailModel.Body = mailModel.Body.Replace("\n", "<br />");
+            }
+            var mailMessage = new MailMessage(mailModel.From, mailModel.To, mailModel.Subject, mailModel.Body);
+            mailMessage.IsBodyHtml = mailModel.AllowHtml;
+           
+            _smtpClient.Send(mailMessage);
         }
     }
 }
