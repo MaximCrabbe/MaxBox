@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Net.Mail;
 
 namespace MaxBox.Core.Models
 {
@@ -12,5 +9,15 @@ namespace MaxBox.Core.Models
         public string Subject { get; set; }
         public string Body { get; set; }
         public bool AllowHtml { get; set; }
+
+        public MailMessage AsMailMessage
+        {
+            get
+            {
+                var mailmessage = new MailMessage(From, To, Subject, Body);
+                mailmessage.IsBodyHtml = AllowHtml;
+                return mailmessage;
+            }
+        }
     }
 }
