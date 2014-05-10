@@ -1,0 +1,48 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using MaxBox.MVC.Models
+@{
+    var pageProcessData = (PageProcessData) ViewBag.PagingVM;
+}
+@if (pageProcessData != null)
+{
+    if (pageProcessData.AuditPages != 1)
+    {
+        var pageList = new List<int>(pageProcessData.MaxPagination + 1);
+        pageList.Add(pageProcessData.CurrentPage);
+        for (int i = 1; i != pageProcessData.MaxPagination/2 + 1; i++)
+        {
+            pageList.Add(pageProcessData.CurrentPage - i);
+            pageList.Add(pageProcessData.CurrentPage + i);
+        }
+        int prefirstpage = pageProcessData.CurrentPage - (pageProcessData.MaxPagination/2 + 1);
+        int suffixlastpage = pageProcessData.CurrentPage + (pageProcessData.MaxPagination/2 + 1);
+        <ul class="pagination">
+            @if (pageProcessData.CurrentPage >= pageProcessData.MaxPagination)
+            {
+                <li><a class="btn btn-default @(prefirstpage < 1 ? "disabled" : "")" href=" @pageProcessData.GenerateUrlWithPage(1) ">1</a></li>
+            }
+            @if (pageProcessData.CurrentPage > pageProcessData.MaxPagination)
+            {
+                <li><a class="btn btn-default @(prefirstpage < 1 ? "disabled" : "")" href=" @pageProcessData.GenerateUrlWithPage(prefirstpage) ">...</a></li>
+            }
+            @foreach (int pagenumber in pageList.OrderBy(x => x))
+            {
+                if (pagenumber > 0 && pagenumber <= pageProcessData.AuditPages)
+                {
+                    <li>
+                        <a class="btn btn-default @(pagenumber == (((int?) pageProcessData.CurrentPage).GetValueOrDefault(1)) ? "active" : "") " href=" @pageProcessData.GenerateUrlWithPage(pagenumber) ">@pagenumber.ToString()</a>
+                    </li>
+                }
+            }
+            @if (suffixlastpage < pageProcessData.AuditPages)
+            {
+                <li><a class="btn btn-default @(suffixlastpage > pageProcessData.AuditPages ? "disabled" : "")" href=" @pageProcessData.GenerateUrlWithPage(suffixlastpage) ">...</a></li>
+            }
+            @if (pageProcessData.AuditPages > pageProcessData.CurrentPage)
+            {
+                <li><a class="btn btn-default @(suffixlastpage > pageProcessData.AuditPages ? "disabled" : "")" href=" @pageProcessData.GenerateUrlWithPage(pageProcessData.AuditPages) ">@pageProcessData.AuditPages</a></li>
+            }
+        </ul>
+    }
+}

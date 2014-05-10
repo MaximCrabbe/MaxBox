@@ -4,20 +4,19 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D946BBE6-4202-4C4E-9602-88B18D86FE13}</ProjectGuid>
+    <ProjectGuid>{F6ECDAC9-B3B9-4663-9B6C-BA8130994231}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MaxBox.Core</RootNamespace>
-    <AssemblyName>MaxBox.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>MaxBox.Db</RootNamespace>
+    <AssemblyName>MaxBox.Db</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\output\debug\Maxbox.Core\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,13 +24,20 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\output\release\Maxbox.Core\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\lib\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\lib\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,25 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\ExpressionExtensions.cs" />
-    <Compile Include="Helpers\AssemblyHelper.cs" />
-    <Compile Include="Helpers\Interface\IAssemblyHelper.cs" />
-    <Compile Include="Models\Mail\AppSmtpClient.cs" />
-    <Compile Include="Models\Mail\EmailTemplate.cs" />
-    <Compile Include="Models\Mail\HotmailSmtpClient.cs" />
-    <Compile Include="Models\Mail\GmailSmtpClient.cs" />
-    <Compile Include="Models\Mail\MailModel.cs" />
-    <Compile Include="Services\CacheService.cs" />
-    <Compile Include="Services\Interfaces\ICacheService.cs" />
-    <Compile Include="Services\Interfaces\IMailService.cs" />
-    <Compile Include="Services\Interfaces\IRngService.cs" />
-    <Compile Include="Services\MailService.cs" />
-    <Compile Include="Services\RngService.cs" />
+    <Compile Include="Services\Interfaces\IMaintanceService.cs" />
+    <Compile Include="Services\MaintanceService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

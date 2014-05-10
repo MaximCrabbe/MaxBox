@@ -1,0 +1,21 @@
+﻿@using System
+@using System.Linq
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using MaxBox.MVC.Models
+@model string
+@{
+    var pageData = (PageProcessData) ViewBag.PagingModel;
+    PropertyFilter filter = pageData.Filters.FirstOrDefault(x => x.Label.ToLower() == Model.ToLower());
+}
+@if (filter != null)
+{
+    SelectList listwithselect = null;
+    string filterValue = pageData.Query[filter.PropertyName];
+    if (filterValue != null)
+    {
+        listwithselect = new SelectList(filter.SelectList.Items, filter.SelectList.DataValueField, filter.SelectList.DataTextField, filterValue);
+    }
+    SelectList thelist = listwithselect ?? filter.SelectList;
+    @Html.DropDownList(filter.PropertyName, thelist, String.Empty, new {id = filter.PropertyName, @class = "form-control", onchange = "this.form.submit();"})
+}
