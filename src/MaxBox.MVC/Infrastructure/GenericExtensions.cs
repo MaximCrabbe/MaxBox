@@ -16,7 +16,8 @@ namespace MaxBox.MVC.Services
             {
                 if (HttpContext.Current.Session["PagingData"] == null)
                 {
-                    HttpContext.Current.Session["PagingData"] = TypeFactory.Default.CreateInstance<PageProcessService>();
+                    var item = TypeFactory.Default.CreateInstance<PageProcessService>();
+                    HttpContext.Current.Session["PagingData"] = item;
                 }
                 return (PageProcessService)HttpContext.Current.Session["PagingData"];
             }

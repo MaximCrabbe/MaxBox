@@ -31,7 +31,7 @@ namespace MaxBox.MVC.Models
             Data.MaxPagination = maxPagination;
             PagingIsSet = true;
         }
-        public PropertyFilter MakeFilter<T, TKey, SecondKey>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, Expression<Func<T, SecondKey>> enumSelecteor,
+        public DropDownFilter MakeFilter<T, TKey, SecondKey>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, Expression<Func<T, SecondKey>> enumSelecteor,
             string label = null) where T : class
         {
             var enummember = enumSelecteor.Body as MemberExpression;
@@ -43,23 +43,22 @@ namespace MaxBox.MVC.Models
                             Id = (int)Enum.Parse(enummember.Type, Enum.GetName(enummember.Type, x)),
                             Name = x.ToString()
                         });
-            return GenerateFilter(queryable, keySelector, new SelectList(list, "Id", "Name"), label); ;
+            return GenerateDropDownFilter(queryable, keySelector, new SelectList(list, "Id", "Name"), label); ;
         }
 
-        public PropertyFilter MakeFilter<T, TKey, Y>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector,
+        public DropDownFilter MakeFilter<T, TKey, Y>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector,
             IEnumerable<Y> filterlist, string valuefield = "Id", string displayfield = "Name", string label = null)
             where Y : class
             where T : class
         {
-            return GenerateFilter(queryable, keySelector, new SelectList(filterlist.ToList(), valuefield, displayfield), label);
+            return GenerateDropDownFilter(queryable, keySelector, new SelectList(filterlist.ToList(), valuefield, displayfield), label);
         }
-        public PropertyFilter MakeBoolFilter<T>(IQueryable<T> queryable, Expression<Func<T, bool>> keySelector, string label = null)
+        public CheckBoxFilter MakeBoolFilter<T>(IQueryable<T> queryable, Expression<Func<T, bool>> keySelector, string label = null)
             where T : class
         {
-            var trueandfalses = new Dictionary<string, string> { { "true", "true" }, { "false", "false" } }.Select(x => new { Id = x.Key, Name = x.Value });
-            return GenerateFilter(queryable, keySelector, new SelectList(trueandfalses, "Id", "Name"), label);
+            return GenerateCheckBoxFilter(queryable, keySelector, label);
         }
-        public PropertyFilter MakeEnumFilter<T, TKey>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, string label = null)
+        public DropDownFilter MakeEnumFilter<T, TKey>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, string label = null)
         where T : class
         {
             var enummember = keySelector.Body as MemberExpression;
@@ -70,30 +69,53 @@ namespace MaxBox.MVC.Models
                                 Id = (int)Enum.Parse(enummember.Type, Enum.GetName(enummember.Type, d)),
                                 Name = d.ToString()
                             }).ToList();
-            return GenerateFilter(queryable, keySelector, new SelectList(list, "Id", "Name"), label);
+            return GenerateDropDownFilter(queryable, keySelector, new SelectList(list, "Id", "Name"), label);
         }
 
-        public PropertyFilter GenerateFilter<T, TKey>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, SelectList selectList, string label = null) where T : class
+        public CheckBoxFilter GenerateCheckBoxFilter<T, TKey>(IQueryable<T> queryable,
+            Expression<Func<T, TKey>> keySelector, string label = null) where T : class
         {
             var member = keySelector.Body as MemberExpression;
             string propertyName = member.Member.Name;
             string keyname = typeof(T) + "," + propertyName;
-            PropertyFilter propertyFilter;
-            if (_cacheService.TryGetValue(keyname, out propertyFilter))
+            PropertyFilter filter;
+            if (_cacheService.TryGetValue(keyname, out filter))
             {
                 Debug.WriteLine("Got {0} out of cache.", new object[] { keyname });
-                Data.Filters.Add(propertyFilter);
+                Data.Filters.Add(filter);
             }
             else
             {
                 Debug.WriteLine("Putting {0} in the cache.", new object[] { keyname });
                 label = label ?? propertyName;
-                propertyFilter = new PropertyFilter(selectList, label, propertyName, keySelector);
-                propertyFilter.Label = label;
-                Data.Filters.Add(propertyFilter);
-                _cacheService.Add(keyname, propertyFilter);
+                filter = new CheckBoxFilter(label, propertyName, keySelector);
+                filter.Label = label;
+                Data.Filters.Add(filter);
+                _cacheService.Add(keyname, filter);
             }
-            return propertyFilter;
+            return (CheckBoxFilter)filter;
+        }
+        public DropDownFilter GenerateDropDownFilter<T, TKey>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, SelectList selectList, string label = null) where T : class
+        {
+            var member = keySelector.Body as MemberExpression;
+            string propertyName = member.Member.Name;
+            string keyname = typeof(T) + "," + propertyName;
+            PropertyFilter filter;
+            if (_cacheService.TryGetValue(keyname, out filter))
+            {
+                Debug.WriteLine("Got {0} out of cache.", new object[] { keyname });
+                Data.Filters.Add(filter);
+            }
+            else
+            {
+                Debug.WriteLine("Putting {0} in the cache.", new object[] { keyname });
+                label = label ?? propertyName;
+                filter = new DropDownFilter(selectList, label, propertyName, keySelector);
+                filter.Label = label;
+                Data.Filters.Add(filter);
+                _cacheService.Add(keyname, filter);
+            }
+            return (DropDownFilter)filter;
         }
         public void Save(dynamic viewBag)
         {

@@ -8,11 +8,12 @@
 {
     if (pageProcessData.Filters.Any())
     {
-        <form method="GET">
+        <form method="GET" class="well">
             <div class="row">
-                @foreach (var filter in pageProcessData.Filters.Where(x => x.SelectList.Count() > 1))
+                @foreach (var filter in pageProcessData.Filters)
                 {
                     <div class="col-md-4">
+                        <label>@filter.Label</label>
                         @Html.Partial("_Filter", (object)filter.Label)
                     </div>
                 }

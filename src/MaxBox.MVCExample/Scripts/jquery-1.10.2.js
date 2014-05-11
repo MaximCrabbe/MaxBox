@@ -1568,7 +1568,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 				i = 0,
 				results = context.getElementsByTagName( tag );
 
-			// PropertyFilter out possible comments
+			// DropDownFilter out possible comments
 			if ( tag === "*" ) {
 				while ( (elem = results[i++]) ) {
 					if ( elem.nodeType === 1 ) {
@@ -8768,7 +8768,7 @@ if ( xhrSupported ) {
 										statusText = "";
 									}
 
-									// PropertyFilter status for non standard behaviors
+									// DropDownFilter status for non standard behaviors
 
 									// If the request is local and we have data: assume a success
 									// (success with no data won't get notified, that's the best we

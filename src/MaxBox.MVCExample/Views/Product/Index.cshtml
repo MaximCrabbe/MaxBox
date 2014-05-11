@@ -4,13 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-@Html.Partial("_Paging")
-@Html.Partial("_Filters")
+@Html.Partial("_FiltersOLD")
 <table class="table">
     <tr>
         <th>
@@ -55,3 +49,4 @@
     </tr>
 }
 </table>
+@Html.Partial("_PagingOLD")

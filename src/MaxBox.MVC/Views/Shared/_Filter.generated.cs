@@ -66,7 +66,7 @@ namespace MaxBox.MVC.Views.Shared
             #line 7 "..\..\Views\Shared\_Filter.cshtml"
   
     var pageData = (PageProcessData)ViewBag.PageData;
-    PropertyFilter filter = pageData.Filters.FirstOrDefault(x => x.Label.ToLower() == Model.ToLower());
+    var filter = pageData.Filters.FirstOrDefault(x => x.Label.ToLower() == Model.ToLower());
 
             
             #line default
@@ -77,27 +77,31 @@ WriteLiteral("\r\n");
             #line 11 "..\..\Views\Shared\_Filter.cshtml"
  if (filter != null)
 {
-    SelectList listwithselect = null;
-    string filterValue = pageData.Query[filter.PropertyName];
-    if (filterValue != null)
+    if (filter.GetType() == typeof(DropDownFilter))
     {
-        listwithselect = new SelectList(filter.SelectList.Items, filter.SelectList.DataValueField, filter.SelectList.DataTextField, filterValue);
-    }
-    SelectList thelist = listwithselect ?? filter.SelectList;
-    
+        var dropDrownFilter = (DropDownFilter)filter;
+        SelectList listwithselect = null;
+        string filterValue = pageData.Query[filter.PropertyName];
+        if (filterValue != null)
+        {
+            listwithselect = new SelectList(dropDrownFilter.SelectList.Items, dropDrownFilter.SelectList.DataValueField, dropDrownFilter.SelectList.DataTextField, filterValue);
+        }
+        SelectList thelist = listwithselect ?? dropDrownFilter.SelectList;
+        
             
             #line default
             #line hidden
             
-            #line 20 "..\..\Views\Shared\_Filter.cshtml"
-Write(Html.DropDownList(filter.PropertyName, thelist, String.Empty, new {id = filter.PropertyName, @class = "form-control", onchange = "this.form.submit();"}));
+            #line 23 "..\..\Views\Shared\_Filter.cshtml"
+   Write(Html.DropDownList(filter.PropertyName, thelist, String.Empty, new { id = filter.PropertyName, @class = "form-control", onchange = "this.form.submit();" }));
 
             
             #line default
             #line hidden
             
-            #line 20 "..\..\Views\Shared\_Filter.cshtml"
-                                                                                                                                                             
+            #line 23 "..\..\Views\Shared\_Filter.cshtml"
+                                                                                                                                                                   
+    }
 }
             
             #line default

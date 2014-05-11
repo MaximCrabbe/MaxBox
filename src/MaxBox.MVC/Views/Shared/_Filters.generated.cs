@@ -76,6 +76,8 @@ WriteLiteral("        <form");
 
 WriteLiteral(" method=\"GET\"");
 
+WriteLiteral(" class=\"well\"");
+
 WriteLiteral(">\r\n            <div");
 
 WriteLiteral(" class=\"row\"");
@@ -90,7 +92,7 @@ WriteLiteral(">\r\n");
             #line hidden
             
             #line 13 "..\..\Views\Shared\_Filters.cshtml"
-                 foreach (var filter in pageProcessData.Filters.Where(x => x.SelectList.Count() > 1))
+                 foreach (var filter in pageProcessData.Filters)
                 {
 
             
@@ -100,12 +102,21 @@ WriteLiteral("                    <div");
 
 WriteLiteral(" class=\"col-md-4\"");
 
-WriteLiteral(">\r\n");
+WriteLiteral(">\r\n                        <label>");
+
+            
+            #line 16 "..\..\Views\Shared\_Filters.cshtml"
+                          Write(filter.Label);
+
+            
+            #line default
+            #line hidden
+WriteLiteral("</label>\r\n");
 
 WriteLiteral("                        ");
 
             
-            #line 16 "..\..\Views\Shared\_Filters.cshtml"
+            #line 17 "..\..\Views\Shared\_Filters.cshtml"
                    Write(Html.Partial("_Filter", (object)filter.Label));
 
             
@@ -114,7 +125,7 @@ WriteLiteral("                        ");
 WriteLiteral("\r\n                    </div>\r\n");
 
             
-            #line 18 "..\..\Views\Shared\_Filters.cshtml"
+            #line 19 "..\..\Views\Shared\_Filters.cshtml"
                 }
 
             
@@ -123,7 +134,7 @@ WriteLiteral("\r\n                    </div>\r\n");
 WriteLiteral("            </div>\r\n        </form>\r\n");
 
             
-            #line 21 "..\..\Views\Shared\_Filters.cshtml"
+            #line 22 "..\..\Views\Shared\_Filters.cshtml"
     }
 }
             

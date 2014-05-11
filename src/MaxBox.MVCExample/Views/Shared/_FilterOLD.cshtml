@@ -1,21 +1,26 @@
-﻿@using System
-@using System.Linq
-@using System.Web.Mvc
-@using System.Web.Mvc.Html
-@using MaxBox.MVC.Models
+﻿@using MaxBox.MVC.Models
 @model string
 @{
-    var pageData = (PageProcessData)ViewBag.PageData;
+    var pageData = (PageProcessData) ViewBag.PageData;
     PropertyFilter filter = pageData.Filters.FirstOrDefault(x => x.Label.ToLower() == Model.ToLower());
 }
 @if (filter != null)
 {
-    SelectList listwithselect = null;
-    string filterValue = pageData.Query[filter.PropertyName];
-    if (filterValue != null)
+    if (filter.GetType() == typeof (DropDownFilter))
     {
-        listwithselect = new SelectList(filter.SelectList.Items, filter.SelectList.DataValueField, filter.SelectList.DataTextField, filterValue);
+        var dropDrownFilter = (DropDownFilter) filter;
+        SelectList listwithselect = null;
+        string filterValue = pageData.Query[filter.PropertyName];
+        if (filterValue != null)
+        {
+            listwithselect = new SelectList(dropDrownFilter.SelectList.Items, dropDrownFilter.SelectList.DataValueField, dropDrownFilter.SelectList.DataTextField, filterValue);
+        }
+        SelectList thelist = listwithselect ?? dropDrownFilter.SelectList;
+        @Html.DropDownList(filter.PropertyName, thelist, String.Empty, new {id = filter.PropertyName, @class = "form-control", onchange = "this.form.submit();"})
     }
-    SelectList thelist = listwithselect ?? filter.SelectList;
-    @Html.DropDownList(filter.PropertyName, thelist, String.Empty, new {id = filter.PropertyName, @class = "form-control", onchange = "this.form.submit();"})
+    else if (filter.GetType() == typeof(CheckBoxFilter))
+    {
+        var checkBoxFilter = (CheckBoxFilter)filter;
+        @Html.CheckBox(filter.PropertyName, filter.IsChecked, new { id = filter.PropertyName, @class = "form-control", onchange = "this.form.submit();" })
+    }
 }

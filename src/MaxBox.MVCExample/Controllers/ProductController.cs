@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MaxBox.MVC.Infrastructure;
 using MaxBox.MVC.Services;
 using MaxBox.MVCExample.Migrations;
 using MaxBox.MVCExample.Models;
@@ -27,7 +28,7 @@ namespace MaxBox.MVCExample.Controllers
                 .EnableFilterFor(x => x.IsBeschikbaar)
                 .EnableFilterFor(x => x.Status)
                 .EnablePaging(5);
-            return View(products);
+            return View(products).WithSuccess("All loaded well");
         }
 
         protected override void Dispose(bool disposing)

@@ -11,7 +11,7 @@ namespace MaxBox.Db.Helpers
         {
             if (!areYouSure)
             {
-                throw new Exception("You must be sure to delete all your data!");
+                throw new Exception("You must be certain to delete all your data!", new Exception("Add the true paramater for the areYouSure bool"));
             }
             var context = new TContext();
             var list = context.Database.SqlQuery<string>("SELECT 'DROP TABLE [' + SCHEMA_NAME(schema_id) + '].[' + name + ']' FROM sys.tables;SELECT 'DROP PROCEDURE [' + SCHEMA_NAME(schema_id) + '].[' + name + ']' FROM sys.procedures;").ToList(); ;

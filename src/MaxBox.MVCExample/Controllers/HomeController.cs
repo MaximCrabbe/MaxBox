@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MaxBox.Db.Helpers;
+using MaxBox.MVC.Infrastructure;
 using MaxBox.MVCExample.Migrations;
 
 namespace MaxBox.MVCExample.Controllers
@@ -25,9 +26,9 @@ namespace MaxBox.MVCExample.Controllers
         public ActionResult ReCreate()
         {
             var maintanceHelper = new MaintanceHelper();
-            maintanceHelper.ReCreateTables<ApplicationDbContext>();
+            maintanceHelper.ReCreateTables<ApplicationDbContext>(true);
             PastaSeeder.Seed(new ApplicationDbContext());
-            return RedirectToAction("Index");
+            return RedirectToAction("Index").WithSuccess("Successfully recreated database");
         }
     }
 }
