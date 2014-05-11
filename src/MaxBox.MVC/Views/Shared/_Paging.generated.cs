@@ -12,9 +12,10 @@
 namespace MaxBox.MVC.Views.Shared
 {
     using System;
+    using System.Collections.Generic;
     
     #line 1 "..\..\Views\Shared\_Paging.cshtml"
-    using System.Collections.Generic;
+    using System.Diagnostics;
     
     #line default
     #line hidden
@@ -55,7 +56,7 @@ namespace MaxBox.MVC.Views.Shared
             
             #line 4 "..\..\Views\Shared\_Paging.cshtml"
   
-    var pageProcessData = (PageProcessData) ViewBag.PagingVM;
+    var pageProcessData = (PageProcessData)ViewBag.PageData;
 
             
             #line default
@@ -70,13 +71,14 @@ WriteLiteral("\r\n");
     {
         var pageList = new List<int>(pageProcessData.MaxPagination + 1);
         pageList.Add(pageProcessData.CurrentPage);
-        for (int i = 1; i != pageProcessData.MaxPagination/2 + 1; i++)
+        for (int i = 1; i != pageProcessData.MaxPagination / 2 + 1; i++)
         {
             pageList.Add(pageProcessData.CurrentPage - i);
             pageList.Add(pageProcessData.CurrentPage + i);
         }
-        int prefirstpage = pageProcessData.CurrentPage - (pageProcessData.MaxPagination/2 + 1);
-        int suffixlastpage = pageProcessData.CurrentPage + (pageProcessData.MaxPagination/2 + 1);
+        int prefirstpage = pageProcessData.CurrentPage - (pageProcessData.MaxPagination / 2 + 1);
+        int suffixlastpage = pageProcessData.CurrentPage + (pageProcessData.MaxPagination / 2 + 1);
+        Debugger.Launch();
 
             
             #line default
@@ -88,13 +90,13 @@ WriteLiteral(" class=\"pagination\"");
 WriteLiteral(">\r\n");
 
             
-            #line 21 "..\..\Views\Shared\_Paging.cshtml"
+            #line 22 "..\..\Views\Shared\_Paging.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 21 "..\..\Views\Shared\_Paging.cshtml"
+            #line 22 "..\..\Views\Shared\_Paging.cshtml"
              if (pageProcessData.CurrentPage >= pageProcessData.MaxPagination)
             {
 
@@ -103,33 +105,33 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("                <li><a");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 920), Tuple.Create("\"", 981)
-, Tuple.Create(Tuple.Create("", 928), Tuple.Create("btn", 928), true)
-, Tuple.Create(Tuple.Create(" ", 931), Tuple.Create("btn-default", 932), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 945), Tuple.Create("\"", 1006)
+, Tuple.Create(Tuple.Create("", 953), Tuple.Create("btn", 953), true)
+, Tuple.Create(Tuple.Create(" ", 956), Tuple.Create("btn-default", 957), true)
             
-            #line 23 "..\..\Views\Shared\_Paging.cshtml"
-, Tuple.Create(Tuple.Create(" ", 943), Tuple.Create<System.Object, System.Int32>(prefirstpage < 1 ? "disabled" : ""
+            #line 24 "..\..\Views\Shared\_Paging.cshtml"
+, Tuple.Create(Tuple.Create(" ", 968), Tuple.Create<System.Object, System.Int32>(prefirstpage < 1 ? "disabled" : ""
             
             #line default
             #line hidden
-, 944), false)
+, 969), false)
 );
 
-WriteAttribute("href", Tuple.Create(" href=\"", 982), Tuple.Create("\"", 1030)
+WriteAttribute("href", Tuple.Create(" href=\"", 1007), Tuple.Create("\"", 1055)
             
-            #line 23 "..\..\Views\Shared\_Paging.cshtml"
-            , Tuple.Create(Tuple.Create(" ", 989), Tuple.Create<System.Object, System.Int32>(pageProcessData.GenerateUrlWithPage(1)
+            #line 24 "..\..\Views\Shared\_Paging.cshtml"
+           , Tuple.Create(Tuple.Create(" ", 1014), Tuple.Create<System.Object, System.Int32>(pageProcessData.GenerateUrlWithPage(1)
             
             #line default
             #line hidden
-, 990), false)
-, Tuple.Create(Tuple.Create(" ", 1029), Tuple.Create("", 1029), true)
+, 1015), false)
+, Tuple.Create(Tuple.Create(" ", 1054), Tuple.Create("", 1054), true)
 );
 
 WriteLiteral(">1</a></li>\r\n");
 
             
-            #line 24 "..\..\Views\Shared\_Paging.cshtml"
+            #line 25 "..\..\Views\Shared\_Paging.cshtml"
             }
 
             
@@ -138,8 +140,8 @@ WriteLiteral(">1</a></li>\r\n");
 WriteLiteral("            ");
 
             
-            #line 25 "..\..\Views\Shared\_Paging.cshtml"
-             if (pageProcessData.CurrentPage > pageProcessData.MaxPagination)
+            #line 26 "..\..\Views\Shared\_Paging.cshtml"
+             if (pageProcessData.CurrentPage >= pageProcessData.MaxPagination)
             {
 
             
@@ -147,33 +149,33 @@ WriteLiteral("            ");
             #line hidden
 WriteLiteral("                <li><a");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 1175), Tuple.Create("\"", 1236)
-, Tuple.Create(Tuple.Create("", 1183), Tuple.Create("btn", 1183), true)
-, Tuple.Create(Tuple.Create(" ", 1186), Tuple.Create("btn-default", 1187), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 1201), Tuple.Create("\"", 1262)
+, Tuple.Create(Tuple.Create("", 1209), Tuple.Create("btn", 1209), true)
+, Tuple.Create(Tuple.Create(" ", 1212), Tuple.Create("btn-default", 1213), true)
             
-            #line 27 "..\..\Views\Shared\_Paging.cshtml"
-, Tuple.Create(Tuple.Create(" ", 1198), Tuple.Create<System.Object, System.Int32>(prefirstpage < 1 ? "disabled" : ""
+            #line 28 "..\..\Views\Shared\_Paging.cshtml"
+, Tuple.Create(Tuple.Create(" ", 1224), Tuple.Create<System.Object, System.Int32>(prefirstpage < 1 ? "disabled" : ""
             
             #line default
             #line hidden
-, 1199), false)
+, 1225), false)
 );
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1237), Tuple.Create("\"", 1296)
+WriteAttribute("href", Tuple.Create(" href=\"", 1263), Tuple.Create("\"", 1322)
             
-            #line 27 "..\..\Views\Shared\_Paging.cshtml"
-           , Tuple.Create(Tuple.Create(" ", 1244), Tuple.Create<System.Object, System.Int32>(pageProcessData.GenerateUrlWithPage(prefirstpage)
+            #line 28 "..\..\Views\Shared\_Paging.cshtml"
+           , Tuple.Create(Tuple.Create(" ", 1270), Tuple.Create<System.Object, System.Int32>(pageProcessData.GenerateUrlWithPage(prefirstpage)
             
             #line default
             #line hidden
-, 1245), false)
-, Tuple.Create(Tuple.Create(" ", 1295), Tuple.Create("", 1295), true)
+, 1271), false)
+, Tuple.Create(Tuple.Create(" ", 1321), Tuple.Create("", 1321), true)
 );
 
 WriteLiteral(">...</a></li>\r\n");
 
             
-            #line 28 "..\..\Views\Shared\_Paging.cshtml"
+            #line 29 "..\..\Views\Shared\_Paging.cshtml"
             }
 
             
@@ -182,7 +184,7 @@ WriteLiteral(">...</a></li>\r\n");
 WriteLiteral("            ");
 
             
-            #line 29 "..\..\Views\Shared\_Paging.cshtml"
+            #line 30 "..\..\Views\Shared\_Paging.cshtml"
              foreach (int pagenumber in pageList.OrderBy(x => x))
             {
                 if (pagenumber > 0 && pagenumber <= pageProcessData.AuditPages)
@@ -193,34 +195,34 @@ WriteLiteral("            ");
             #line hidden
 WriteLiteral("                    <li>\r\n                        <a");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 1561), Tuple.Create("\"", 1678)
-, Tuple.Create(Tuple.Create("", 1569), Tuple.Create("btn", 1569), true)
-, Tuple.Create(Tuple.Create(" ", 1572), Tuple.Create("btn-default", 1573), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 1587), Tuple.Create("\"", 1704)
+, Tuple.Create(Tuple.Create("", 1595), Tuple.Create("btn", 1595), true)
+, Tuple.Create(Tuple.Create(" ", 1598), Tuple.Create("btn-default", 1599), true)
             
-            #line 34 "..\..\Views\Shared\_Paging.cshtml"
-, Tuple.Create(Tuple.Create(" ", 1584), Tuple.Create<System.Object, System.Int32>(pagenumber == (((int?) pageProcessData.CurrentPage).GetValueOrDefault(1)) ? "active" : ""
+            #line 35 "..\..\Views\Shared\_Paging.cshtml"
+, Tuple.Create(Tuple.Create(" ", 1610), Tuple.Create<System.Object, System.Int32>(pagenumber == (((int?) pageProcessData.CurrentPage).GetValueOrDefault(1)) ? "active" : ""
             
             #line default
             #line hidden
-, 1585), false)
-, Tuple.Create(Tuple.Create(" ", 1677), Tuple.Create("", 1677), true)
+, 1611), false)
+, Tuple.Create(Tuple.Create(" ", 1703), Tuple.Create("", 1703), true)
 );
 
-WriteAttribute("href", Tuple.Create(" href=\"", 1679), Tuple.Create("\"", 1736)
+WriteAttribute("href", Tuple.Create(" href=\"", 1705), Tuple.Create("\"", 1762)
             
-            #line 34 "..\..\Views\Shared\_Paging.cshtml"
-                                                                       , Tuple.Create(Tuple.Create(" ", 1686), Tuple.Create<System.Object, System.Int32>(pageProcessData.GenerateUrlWithPage(pagenumber)
+            #line 35 "..\..\Views\Shared\_Paging.cshtml"
+                                                                       , Tuple.Create(Tuple.Create(" ", 1712), Tuple.Create<System.Object, System.Int32>(pageProcessData.GenerateUrlWithPage(pagenumber)
             
             #line default
             #line hidden
-, 1687), false)
-, Tuple.Create(Tuple.Create(" ", 1735), Tuple.Create("", 1735), true)
+, 1713), false)
+, Tuple.Create(Tuple.Create(" ", 1761), Tuple.Create("", 1761), true)
 );
 
 WriteLiteral(">");
 
             
-            #line 34 "..\..\Views\Shared\_Paging.cshtml"
+            #line 35 "..\..\Views\Shared\_Paging.cshtml"
                                                                                                                                                                                                       Write(pagenumber.ToString());
 
             
@@ -229,7 +231,7 @@ WriteLiteral(">");
 WriteLiteral("</a>\r\n                    </li>\r\n");
 
             
-            #line 36 "..\..\Views\Shared\_Paging.cshtml"
+            #line 37 "..\..\Views\Shared\_Paging.cshtml"
                 }
             }
 
@@ -239,7 +241,7 @@ WriteLiteral("</a>\r\n                    </li>\r\n");
 WriteLiteral("            ");
 
             
-            #line 38 "..\..\Views\Shared\_Paging.cshtml"
+            #line 39 "..\..\Views\Shared\_Paging.cshtml"
              if (suffixlastpage < pageProcessData.AuditPages)
             {
 
@@ -248,33 +250,33 @@ WriteLiteral("            ");
             #line hidden
 WriteLiteral("                <li><a");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 1927), Tuple.Create("\"", 2015)
-, Tuple.Create(Tuple.Create("", 1935), Tuple.Create("btn", 1935), true)
-, Tuple.Create(Tuple.Create(" ", 1938), Tuple.Create("btn-default", 1939), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 1953), Tuple.Create("\"", 2041)
+, Tuple.Create(Tuple.Create("", 1961), Tuple.Create("btn", 1961), true)
+, Tuple.Create(Tuple.Create(" ", 1964), Tuple.Create("btn-default", 1965), true)
             
-            #line 40 "..\..\Views\Shared\_Paging.cshtml"
-, Tuple.Create(Tuple.Create(" ", 1950), Tuple.Create<System.Object, System.Int32>(suffixlastpage > pageProcessData.AuditPages ? "disabled" : ""
+            #line 41 "..\..\Views\Shared\_Paging.cshtml"
+, Tuple.Create(Tuple.Create(" ", 1976), Tuple.Create<System.Object, System.Int32>(suffixlastpage > pageProcessData.AuditPages ? "disabled" : ""
             
             #line default
             #line hidden
-, 1951), false)
+, 1977), false)
 );
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2016), Tuple.Create("\"", 2077)
+WriteAttribute("href", Tuple.Create(" href=\"", 2042), Tuple.Create("\"", 2103)
             
-            #line 40 "..\..\Views\Shared\_Paging.cshtml"
-                                      , Tuple.Create(Tuple.Create(" ", 2023), Tuple.Create<System.Object, System.Int32>(pageProcessData.GenerateUrlWithPage(suffixlastpage)
+            #line 41 "..\..\Views\Shared\_Paging.cshtml"
+                                      , Tuple.Create(Tuple.Create(" ", 2049), Tuple.Create<System.Object, System.Int32>(pageProcessData.GenerateUrlWithPage(suffixlastpage)
             
             #line default
             #line hidden
-, 2024), false)
-, Tuple.Create(Tuple.Create(" ", 2076), Tuple.Create("", 2076), true)
+, 2050), false)
+, Tuple.Create(Tuple.Create(" ", 2102), Tuple.Create("", 2102), true)
 );
 
 WriteLiteral(">...</a></li>\r\n");
 
             
-            #line 41 "..\..\Views\Shared\_Paging.cshtml"
+            #line 42 "..\..\Views\Shared\_Paging.cshtml"
             }
 
             
@@ -283,8 +285,8 @@ WriteLiteral(">...</a></li>\r\n");
 WriteLiteral("            ");
 
             
-            #line 42 "..\..\Views\Shared\_Paging.cshtml"
-             if (pageProcessData.AuditPages > pageProcessData.CurrentPage)
+            #line 43 "..\..\Views\Shared\_Paging.cshtml"
+             if (suffixlastpage <= pageProcessData.AuditPages)
             {
 
             
@@ -292,33 +294,33 @@ WriteLiteral("            ");
             #line hidden
 WriteLiteral("                <li><a");
 
-WriteAttribute("class", Tuple.Create(" class=\"", 2221), Tuple.Create("\"", 2309)
-, Tuple.Create(Tuple.Create("", 2229), Tuple.Create("btn", 2229), true)
-, Tuple.Create(Tuple.Create(" ", 2232), Tuple.Create("btn-default", 2233), true)
+WriteAttribute("class", Tuple.Create(" class=\"", 2235), Tuple.Create("\"", 2323)
+, Tuple.Create(Tuple.Create("", 2243), Tuple.Create("btn", 2243), true)
+, Tuple.Create(Tuple.Create(" ", 2246), Tuple.Create("btn-default", 2247), true)
             
-            #line 44 "..\..\Views\Shared\_Paging.cshtml"
-, Tuple.Create(Tuple.Create(" ", 2244), Tuple.Create<System.Object, System.Int32>(suffixlastpage > pageProcessData.AuditPages ? "disabled" : ""
+            #line 45 "..\..\Views\Shared\_Paging.cshtml"
+, Tuple.Create(Tuple.Create(" ", 2258), Tuple.Create<System.Object, System.Int32>(suffixlastpage > pageProcessData.AuditPages ? "disabled" : ""
             
             #line default
             #line hidden
-, 2245), false)
+, 2259), false)
 );
 
-WriteAttribute("href", Tuple.Create(" href=\"", 2310), Tuple.Create("\"", 2383)
+WriteAttribute("href", Tuple.Create(" href=\"", 2324), Tuple.Create("\"", 2397)
             
-            #line 44 "..\..\Views\Shared\_Paging.cshtml"
-                                      , Tuple.Create(Tuple.Create(" ", 2317), Tuple.Create<System.Object, System.Int32>(pageProcessData.GenerateUrlWithPage(pageProcessData.AuditPages)
+            #line 45 "..\..\Views\Shared\_Paging.cshtml"
+                                      , Tuple.Create(Tuple.Create(" ", 2331), Tuple.Create<System.Object, System.Int32>(pageProcessData.GenerateUrlWithPage(pageProcessData.AuditPages)
             
             #line default
             #line hidden
-, 2318), false)
-, Tuple.Create(Tuple.Create(" ", 2382), Tuple.Create("", 2382), true)
+, 2332), false)
+, Tuple.Create(Tuple.Create(" ", 2396), Tuple.Create("", 2396), true)
 );
 
 WriteLiteral(">");
 
             
-            #line 44 "..\..\Views\Shared\_Paging.cshtml"
+            #line 45 "..\..\Views\Shared\_Paging.cshtml"
                                                                                                                                                                                      Write(pageProcessData.AuditPages);
 
             
@@ -327,7 +329,7 @@ WriteLiteral(">");
 WriteLiteral("</a></li>\r\n");
 
             
-            #line 45 "..\..\Views\Shared\_Paging.cshtml"
+            #line 46 "..\..\Views\Shared\_Paging.cshtml"
             }
 
             
@@ -336,7 +338,7 @@ WriteLiteral("</a></li>\r\n");
 WriteLiteral("        </ul>\r\n");
 
             
-            #line 47 "..\..\Views\Shared\_Paging.cshtml"
+            #line 48 "..\..\Views\Shared\_Paging.cshtml"
     }
 }
             

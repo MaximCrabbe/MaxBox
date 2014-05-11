@@ -168,6 +168,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\PastaSeeder.cs" />
     <Compile Include="Migrations\ApplicationDbContext.cs" />
+    <Compile Include="Models\Enums\Status.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductCategory.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -208,7 +209,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
@@ -226,11 +226,10 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
-    <Content Include="Views\Product\Delete.cshtml" />
-    <Content Include="Views\Product\Details.cshtml" />
-    <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Shared\_FilterOLD.cshtml" />
+    <Content Include="Views\Shared\_FiltersOLD.cshtml" />
+    <Content Include="Views\Shared\_PagingOLD.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -239,12 +238,18 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MaxBox.Core\MaxBox.Core.csproj">
       <Project>{d946bbe6-4202-4c4e-9602-88b18d86fe13}</Project>
       <Name>MaxBox.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MaxBox.Db\MaxBox.Db.csproj">
+      <Project>{f6ecdac9-b3b9-4663-9b6c-ba8130994231}</Project>
+      <Name>MaxBox.Db</Name>
     </ProjectReference>
     <ProjectReference Include="..\MaxBox.MVC\MaxBox.MVC.csproj">
       <Project>{e43b68ae-2447-4a33-a2d2-d3bea338595c}</Project>

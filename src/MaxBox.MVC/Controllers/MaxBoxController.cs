@@ -8,11 +8,11 @@ namespace MaxBox.MVC
     {
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (Session["pagingvm"] != null)
+            if (Session["PagingData"] != null)
             {
-                var pagingVm = (PageProcessService)Session["pagingvm"];
-                pagingVm.Save(ViewBag);
-                Session["pagingvm"] = null;
+                var pageProcessService = (PageProcessService)Session["PagingData"];
+                pageProcessService.Save(ViewBag);
+                Session["PagingData"] = null;
             }
             base.OnActionExecuted(filterContext);
         }

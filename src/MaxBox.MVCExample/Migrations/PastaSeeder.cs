@@ -65,27 +65,33 @@ namespace MaxBox.MVCExample.Migrations
                     Afkorting = "COC",
                     Naam = "Coca-Cola",
                     Prijs = 1.6,
-                    CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
+                    CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id,
+                    IsBeschikbaar = false,
+                    Status = Status.Discount
                 },
                 new Product
                 {
                     Afkorting = "COL",
                     Naam = "Coca-Cola light",
                     Prijs = 1.6,
-                    CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
+                    CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id,
+                    Status = Status.Discount
                 },
                 new Product
                 {
                     Afkorting = "COZ",
                     Naam = "Coca-Cola zero",
                     Prijs = 1.6,
-                    CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
+                    CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id,
+                    IsBeschikbaar = false,
+                    Status = Status.Discount
                 },
                 new Product
                 {
                     Afkorting = "FAN",
                     Naam = "Fanta",
                     Prijs = 1.6,
+                    IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
                 },
 
@@ -94,6 +100,7 @@ namespace MaxBox.MVCExample.Migrations
                     Afkorting = "SPR",
                     Naam = "Sprite",
                     Prijs = 1.6,
+                    IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
                 },
                    new Product
@@ -130,7 +137,8 @@ namespace MaxBox.MVCExample.Migrations
                     Afkorting = "BWA",
                     Naam = "Bruiswater",
                     Prijs = 1.6,
-                    CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
+                    CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id,
+                    Status = Status.SuperDiscount
                 },
                          new Product
                 {
@@ -158,6 +166,7 @@ namespace MaxBox.MVCExample.Migrations
                     Afkorting = "FCC",
                     Naam = "Fles Coca-Cola",
                     Prijs = 3.5,
+                    IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
                 },
 
@@ -168,13 +177,15 @@ namespace MaxBox.MVCExample.Migrations
                     Afkorting = "KPO",
                     Naam = "Pollo met verrassingspasta",
                     Prijs = 5.99,
-                    CategorieId = productcategorien.First(x => x.Naam == "KinderMenu's").Id
+                    CategorieId = productcategorien.First(x => x.Naam == "KinderMenu's").Id,
+                    Status = Status.Discount
                 },
                 new Product
                 {
                     Afkorting = "KSP",
                     Naam = "Spagghetti bolognese",
                     Prijs = 5.99,
+                    IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "KinderMenu's").Id
                  },
 
@@ -185,13 +196,16 @@ namespace MaxBox.MVCExample.Migrations
                     Afkorting = "LON",
                     Naam = "Lookbrood natuur 3 stuks",
                     Prijs = 2.70,
-                    CategorieId = productcategorien.First(x => x.Naam == "Voorgerechten").Id
+                    CategorieId = productcategorien.First(x => x.Naam == "Voorgerechten").Id,
+                    IsBeschikbaar = false,
+                    Status = Status.SuperDiscount
                 },
                 new Product
                 {
                     Afkorting = "LOK",
                     Naam = "Lookbrood met kaas 3 stuks",
                     Prijs = 3.30,
+                    IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Voorgerechten").Id
                 },
 
@@ -224,6 +238,7 @@ namespace MaxBox.MVCExample.Migrations
                     Afkorting = "ZUP",
                     Naam = "Zuppa di pomodoro",
                     Prijs = 3.50,
+                    IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Voorgerechten").Id
                 } ,
 
@@ -265,6 +280,7 @@ namespace MaxBox.MVCExample.Migrations
                     Afkorting = "SMS",
                     Naam = "Insalate mista mixed salada",
                     Prijs = 4.25,
+                    IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Salades").Id
                 }
                 ,
@@ -273,6 +289,7 @@ namespace MaxBox.MVCExample.Migrations
                     Afkorting = "KIP",
                     Naam = "Insalate al pollo 'kipsalade'",
                     Prijs = 4.90,
+                    IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Salades").Id
                 }
                 ,
@@ -281,6 +298,7 @@ namespace MaxBox.MVCExample.Migrations
                     Afkorting = "CHE",
                     Naam = "Insalate dello chef 'salade van de chef'",
                     Prijs = 4.90,
+                    IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Salades").Id
                 }
                 ,     
@@ -305,9 +323,11 @@ namespace MaxBox.MVCExample.Migrations
                     Afkorting = "LAS",
                     Naam = "Lasagne Bolognese",
                     Prijs = 11.60,
+                    IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Pasta al forno").Id
                 }
             });
+            context.SaveChanges();
         }
     }
 }

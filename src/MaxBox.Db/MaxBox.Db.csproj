@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\MaintanceHelper.cs" />
     <Compile Include="Services\Interfaces\IMaintanceService.cs" />
     <Compile Include="Services\MaintanceService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

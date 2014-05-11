@@ -63,7 +63,7 @@
     <Compile Include="Models\PageProcessService.cs" />
     <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\GenericPage.cs" />
+    <Compile Include="Services\GenericExtensions.cs" />
     <Compile Include="Views\Shared\_Filter.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

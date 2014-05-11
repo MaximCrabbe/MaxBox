@@ -13,7 +13,7 @@
                 @foreach (var filter in pageProcessData.Filters.Where(x => x.SelectList.Count() > 1))
                 {
                     <div class="col-md-4">
-                        @Html.Partial("_Filter", (object)filter.Label)
+                        @Html.Partial("_FilterOld", (object)filter.Label)
                     </div>
                 }
             </div>

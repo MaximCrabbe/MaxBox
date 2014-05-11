@@ -65,7 +65,7 @@ namespace MaxBox.MVC.Views.Shared
             
             #line 7 "..\..\Views\Shared\_Filter.cshtml"
   
-    var pageData = (PageProcessData) ViewBag.PagingModel;
+    var pageData = (PageProcessData)ViewBag.PageData;
     PropertyFilter filter = pageData.Filters.FirstOrDefault(x => x.Label.ToLower() == Model.ToLower());
 
             

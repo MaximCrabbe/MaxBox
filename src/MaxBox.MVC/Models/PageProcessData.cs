@@ -15,7 +15,7 @@ namespace MaxBox.MVC.Models
             Filters = new List<PropertyFilter>();
             CurrentPage = 1;
             MaxPagination = 4;
-            PagingSize = 20;
+            ItemsPerPage = 20;
             Controller = HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("controller");
             Action = HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("action");
             Query = HttpContext.Current.Request.QueryString;
@@ -31,7 +31,7 @@ namespace MaxBox.MVC.Models
         public bool IsPaged { get; set; }
         public NameValueCollection Query { get; set; }
         public int AuditPages { get; set; }
-        public int PagingSize { get; set; }
+        public int ItemsPerPage { get; set; }
         public int CurrentPage { get; set; }
         public int MaxPagination { get; set; }
         public int ItemsCount { get; set; }

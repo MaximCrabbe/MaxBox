@@ -13,7 +13,7 @@ namespace MaxBox.MVCExample.Models
         [ForeignKey("CategorieId")]
         public virtual ProductCategory Category { get; set; }
         public bool IsBeschikbaar { get; set; }
-
+        public Status Status { get; set; }
         public Product()
         {
             IsBeschikbaar = true;

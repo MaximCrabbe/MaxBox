@@ -4,6 +4,6 @@ namespace MaxBox.Db.Services
 {
     public interface IMaintanceService
     {
-        void DeleteAllTables(DbContext context, bool areYouSure = false);
+        void DeleteAllTables<TContext>(bool areYouSure = false) where TContext : DbContext, new();
     }
 }

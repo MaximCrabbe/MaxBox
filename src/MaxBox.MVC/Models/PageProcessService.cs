@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -24,80 +25,25 @@ namespace MaxBox.MVC.Models
 
         public PageProcessData Data { get; set; }
 
-        public void SetPaging(int pagingSize, int maxPagination)
+        public void SetPaging(int itemsPerPage, int maxPagination)
         {
-            Data.PagingSize = pagingSize;
+            Data.ItemsPerPage = itemsPerPage;
             Data.MaxPagination = maxPagination;
             PagingIsSet = true;
         }
-
-
-        //public PropertyFilter MakeFilter<T, TKey>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, string label = null) where T : class
-        //{
-        //    var member = keySelector.Body as MemberExpression;
-        //    string propertyName = member.Member.Name;
-        //    string keyname = typeof(T) + "," + propertyName;
-        //    label = label ?? propertyName;
-        //    PropertyFilter PropertyFilter;
-        //    if (_cacheService.TryGetValue(keyname, out PropertyFilter))
-        //    {
-        //        if (PropertyFilter.CreatedTime.Add(CacheTime) < DateTime.Now)
-        //        {
-        //            Debug.WriteLine("Got {0} out of cache.", new object[] { keyname });
-        //            Data.Filters.Add(PropertyFilter);
-        //        }
-        //        else
-        //        {
-        //            _cacheService.Remove(keyname);
-        //            Debug.WriteLine("Putting {0} in the cache.", new object[] { keyname });
-        //            Func<T, TKey> function = keySelector.Compile();
-        //            List<string> filterData = queryable.DistinctBy(function).Select(function).Cast<string>().ToList();
-        //            PropertyFilter = new PropertyFilter(filterData, label, propertyName, keySelector);
-        //            Data.Filters.Add(PropertyFilter);
-        //            _cacheService.Add(keyname, PropertyFilter);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Debug.WriteLine("Putting {0} in the cache.", new object[] { keyname });
-        //        Func<T, TKey> function = keySelector.Compile();
-        //        List<string> filterData = queryable.DistinctBy(function).Select(function).Cast<string>().ToList();
-        //        PropertyFilter = new PropertyFilter(filterData, label, propertyName, keySelector);
-        //        Data.Filters.Add(PropertyFilter);
-        //        _cacheService.Add(keyname, PropertyFilter);
-        //    }
-        //    return PropertyFilter;
-        //}
-        public PropertyFilter MakeFilter<T, TKey, SecondKey>(IQueryable<T> queryable,
-            Expression<Func<T, TKey>> keySelector, Expression<Func<T, SecondKey>> enumSelecteor,
+        public PropertyFilter MakeFilter<T, TKey, SecondKey>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, Expression<Func<T, SecondKey>> enumSelecteor,
             string label = null) where T : class
         {
-            var member = keySelector.Body as MemberExpression;
-            string propertyName = member.Member.Name;
-            string keyname = typeof (T) + "," + propertyName;
-            label = label ?? propertyName;
-            PropertyFilter propertyFilter;
-            if (_cacheService.TryGetValue(keyname, out propertyFilter))
-            {
-                Debug.WriteLine("Got {0} out of cache.", new object[] {keyname});
-                Data.Filters.Add(propertyFilter);
-            }
-            else
-            {
-                Debug.WriteLine("Putting {0} in the cache.", new object[] {keyname});
-                var enummember = enumSelecteor.Body as MemberExpression;
-                var list = (from Enum d in Enum.GetValues(enummember.Type)
-                    select
+            var enummember = enumSelecteor.Body as MemberExpression;
+            var list =
+                ((IEnumerable<Enum>)Enum.GetValues(enummember.Type)).Select(
+                    x =>
                         new
                         {
-                            Id = (int) Enum.Parse(enummember.Type, Enum.GetName(enummember.Type, d)),
-                            Name = d.ToString()
-                        }).ToList();
-                propertyFilter = new PropertyFilter(new SelectList(list, "Id", "Name"), label, propertyName, keySelector);
-                Data.Filters.Add(propertyFilter);
-                _cacheService.Add(keyname, propertyFilter);
-            }
-            return propertyFilter;
+                            Id = (int)Enum.Parse(enummember.Type, Enum.GetName(enummember.Type, x)),
+                            Name = x.ToString()
+                        });
+            return GenerateFilter(queryable, keySelector, new SelectList(list, "Id", "Name"), label); ;
         }
 
         public PropertyFilter MakeFilter<T, TKey, Y>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector,
@@ -105,80 +51,96 @@ namespace MaxBox.MVC.Models
             where Y : class
             where T : class
         {
+            return GenerateFilter(queryable, keySelector, new SelectList(filterlist.ToList(), valuefield, displayfield), label);
+        }
+        public PropertyFilter MakeBoolFilter<T>(IQueryable<T> queryable, Expression<Func<T, bool>> keySelector, string label = null)
+            where T : class
+        {
+            var trueandfalses = new Dictionary<string, string> { { "true", "true" }, { "false", "false" } }.Select(x => new { Id = x.Key, Name = x.Value });
+            return GenerateFilter(queryable, keySelector, new SelectList(trueandfalses, "Id", "Name"), label);
+        }
+        public PropertyFilter MakeEnumFilter<T, TKey>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, string label = null)
+        where T : class
+        {
+            var enummember = keySelector.Body as MemberExpression;
+            var list = (from Enum d in Enum.GetValues(enummember.Type)
+                        select
+                            new
+                            {
+                                Id = (int)Enum.Parse(enummember.Type, Enum.GetName(enummember.Type, d)),
+                                Name = d.ToString()
+                            }).ToList();
+            return GenerateFilter(queryable, keySelector, new SelectList(list, "Id", "Name"), label);
+        }
+
+        public PropertyFilter GenerateFilter<T, TKey>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, SelectList selectList, string label = null) where T : class
+        {
             var member = keySelector.Body as MemberExpression;
             string propertyName = member.Member.Name;
-            string keyname = typeof (T) + "," + propertyName;
-            label = label ?? propertyName;
+            string keyname = typeof(T) + "," + propertyName;
             PropertyFilter propertyFilter;
             if (_cacheService.TryGetValue(keyname, out propertyFilter))
             {
-                Debug.WriteLine("Got {0} out of cache.", new object[] {keyname});
+                Debug.WriteLine("Got {0} out of cache.", new object[] { keyname });
                 Data.Filters.Add(propertyFilter);
             }
             else
             {
-                Debug.WriteLine("Putting {0} in the cache.", new object[] {keyname});
-                propertyFilter = new PropertyFilter(new SelectList(filterlist.ToList(), valuefield, displayfield), label,
-                    propertyName, keySelector);
+                Debug.WriteLine("Putting {0} in the cache.", new object[] { keyname });
+                label = label ?? propertyName;
+                propertyFilter = new PropertyFilter(selectList, label, propertyName, keySelector);
+                propertyFilter.Label = label;
                 Data.Filters.Add(propertyFilter);
                 _cacheService.Add(keyname, propertyFilter);
             }
             return propertyFilter;
         }
-
-
         public void Save(dynamic viewBag)
         {
-            viewBag.PagingVM = Data;
+            viewBag.PageData = Data;
         }
 
         public IQueryable<T> ProcessPaging<T>(IQueryable<T> queryable)
         {
             Data.IsPaged = true;
-            Data.ItemsCount = queryable.Count();
-            Data.AuditPages = (Data.ItemsCount/Data.PagingSize) + 1;
+            Data.ItemsCount = queryable.Count() - 1;
+            Data.AuditPages = (Data.ItemsCount / Data.ItemsPerPage) + 1;
             if (Data.CurrentPage > 1)
             {
-                queryable = queryable.Skip((Data.CurrentPage - 1)*Data.PagingSize);
+                queryable = queryable.Skip((Data.CurrentPage - 1) * Data.ItemsPerPage);
             }
-            return queryable.Take(Data.PagingSize);
+            return queryable.Take(Data.ItemsPerPage);
         }
-
-        public IQueryable<T> ProcessFilters<T>(IQueryable<T> queryable)
-        {
-            Data.Filters.ForEach(filter => { queryable = ProcessFilter(queryable, filter); });
-            return queryable;
-        }
-
-        public IQueryable<T> ProcessFilter<T>(IQueryable<T> queryable, PropertyFilter propertyFilter)
+        public IQueryable<T> ProcessFilter<T, TKey>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector)
         {
             if (Data.IsPaged)
             {
                 throw new Exception("Paging must be done on the last step.");
-                    // how else can you know the paging if you later are going to add the filtering ....
             }
-            string thevalue = Data.Query[propertyFilter.PropertyName];
+            var member = keySelector.Body as MemberExpression;
+            string propertyName = member.Member.Name;
+            string thevalue = Data.Query[propertyName];
             if (!String.IsNullOrWhiteSpace(thevalue))
             {
-                var stringfilter = propertyFilter.KeySelector as Expression<Func<T, string>>;
-                if (stringfilter != null)
-                {
-                    return queryable.Where(stringfilter.Compose(x => x == thevalue));
-                }
-                var intfilter = propertyFilter.KeySelector as Expression<Func<T, int>>;
-                if (intfilter != null)
-                {
-                    int intvalue = Convert.ToInt32(thevalue);
-                    return queryable.Where(intfilter.Compose(x => x == intvalue));
-                }
-                var intnullfilter = propertyFilter.KeySelector as Expression<Func<T, int?>>;
-                if (intnullfilter != null)
-                {
-                    int intvalue = Convert.ToInt32(thevalue);
-                    return queryable.Where(intnullfilter.Compose(x => x == intvalue));
-                }
+                return queryable.Where(CreateWhere(keySelector, thevalue));
             }
             return queryable;
+        }
+
+        public Expression<Func<T, bool>> CreateWhere<T, TKey>(Expression<Func<T, TKey>> keySelector, string parameterValue)
+        {
+            TKey value;
+            if ((typeof(TKey)).IsEnum)
+            {
+                value = (TKey)Enum.Parse(typeof(TKey), parameterValue);
+            }
+            else
+            {
+                value = (TKey)Convert.ChangeType(parameterValue, typeof(TKey));
+            }
+            ParameterExpression param = keySelector.Parameters[0];
+            Expression body = Expression.Equal(keySelector.Body, Expression.Constant(value));
+            return Expression.Lambda<Func<T, bool>>(body, param);
         }
     }
 }

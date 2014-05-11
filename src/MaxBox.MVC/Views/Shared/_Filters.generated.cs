@@ -55,7 +55,7 @@ namespace MaxBox.MVC.Views.Shared
             
             #line 4 "..\..\Views\Shared\_Filters.cshtml"
   
-    var pageProcessData = (PageProcessData)ViewBag.PagingVM;
+    var pageProcessData = (PageProcessData)ViewBag.PageData;
 
             
             #line default

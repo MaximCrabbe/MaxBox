@@ -13,7 +13,7 @@ namespace MaxBox.Core.Extensions
             return new ReplaceVisitor(searchEx, replaceEx).Visit(expression);
         }
 
-        public static Expression<Func<TFirstParam, TResult>> Compose<TFirstParam, TIntermediate, TResult>(this Expression<Func<TFirstParam, TIntermediate>> first, Expression<Func<TIntermediate, TResult>> second)
+        public static Expression<Func<TFirstParam, TResult>>Compose<TFirstParam, TIntermediate, TResult>(this Expression<Func<TFirstParam, TIntermediate>> first, Expression<Func<TIntermediate, TResult>> second)
         {
             var param = Expression.Parameter(typeof(TFirstParam), "param");
             var newFirst = first.Body.Replace(first.Parameters[0], param);

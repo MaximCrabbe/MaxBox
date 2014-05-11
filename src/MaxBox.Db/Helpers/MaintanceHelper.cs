@@ -3,9 +3,9 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 
-namespace MaxBox.Db.Services
+namespace MaxBox.Db.Helpers
 {
-    public class MaintanceService
+    public class MaintanceHelper
     {
         public void DeleteAllTables<TContext>(bool areYouSure = false) where TContext : DbContext, new()
         {
@@ -32,7 +32,7 @@ namespace MaxBox.Db.Services
                         context.Database.ExecuteSqlCommand(tabledeletesql);
                         list.Remove(tabledeletesql);
                         Debug.WriteLine(tabledeletesql);
-                       
+
                     }
                     catch (Exception)
                     {
@@ -47,7 +47,7 @@ namespace MaxBox.Db.Services
             using (var context = new TContext())
             {
                 context.Database.Initialize(true);
-                
+
             }
         }
         public void ReCreateTables<TContext>(bool areYouSure = false) where TContext : DbContext, new()
