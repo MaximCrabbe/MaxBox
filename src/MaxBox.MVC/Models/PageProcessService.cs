@@ -53,10 +53,13 @@ namespace MaxBox.MVC.Models
         {
             return GenerateDropDownFilter(queryable, keySelector, new SelectList(filterlist.ToList(), valuefield, displayfield), label);
         }
-        public CheckBoxFilter MakeBoolFilter<T>(IQueryable<T> queryable, Expression<Func<T, bool>> keySelector, string label = null)
+        public DropDownFilter MakeBoolFilter<T>(IQueryable<T> queryable, Expression<Func<T, bool>> keySelector, string label = null)
             where T : class
         {
-            return GenerateCheckBoxFilter(queryable, keySelector, label);
+
+            var trueandfalses = new Dictionary<string, string> { { "true", "True" }, { "false", "False" } }.Select(x => new { Id = x.Key, Name = x.Value });
+            return GenerateDropDownFilter(queryable, keySelector, new SelectList(trueandfalses, "Id", "Name"), label);
+            //return GenerateCheckBoxFilter(queryable, keySelector, label); checkbox only has 2 states :/
         }
         public DropDownFilter MakeEnumFilter<T, TKey>(IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, string label = null)
         where T : class
