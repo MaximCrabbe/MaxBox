@@ -11,33 +11,23 @@
 
 namespace MaxBox.MVC.Views.Shared
 {
-    
-    #line 1 "..\..\Views\Shared\_Filter.cshtml"
     using System;
-    
-    #line default
-    #line hidden
     using System.Collections.Generic;
     using System.IO;
-    
-    #line 2 "..\..\Views\Shared\_Filter.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
     using System.Web;
     using System.Web.Helpers;
     
-    #line 3 "..\..\Views\Shared\_Filter.cshtml"
+    #line 1 "..\..\Views\Shared\_Filter.cshtml"
     using System.Web.Mvc;
     
     #line default
     #line hidden
     using System.Web.Mvc.Ajax;
     
-    #line 4 "..\..\Views\Shared\_Filter.cshtml"
+    #line 2 "..\..\Views\Shared\_Filter.cshtml"
     using System.Web.Mvc.Html;
     
     #line default
@@ -47,7 +37,7 @@ namespace MaxBox.MVC.Views.Shared
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 5 "..\..\Views\Shared\_Filter.cshtml"
+    #line 3 "..\..\Views\Shared\_Filter.cshtml"
     using MaxBox.MVC.Models;
     
     #line default
@@ -63,10 +53,10 @@ namespace MaxBox.MVC.Views.Shared
         public override void Execute()
         {
             
-            #line 7 "..\..\Views\Shared\_Filter.cshtml"
+            #line 5 "..\..\Views\Shared\_Filter.cshtml"
   
     var pageData = (PageProcessData)ViewBag.PageData;
-    var filter = pageData.Filters.FirstOrDefault(x => x.Label.ToLower() == Model.ToLower());
+    PropertyFilter filter = pageData.Filters.FirstOrDefault(x => x.Label.ToLower() == Model.ToLower());
 
             
             #line default
@@ -74,7 +64,7 @@ namespace MaxBox.MVC.Views.Shared
 WriteLiteral("\r\n");
 
             
-            #line 11 "..\..\Views\Shared\_Filter.cshtml"
+            #line 9 "..\..\Views\Shared\_Filter.cshtml"
  if (filter != null)
 {
     if (filter.GetType() == typeof(DropDownFilter))
@@ -92,15 +82,33 @@ WriteLiteral("\r\n");
             #line default
             #line hidden
             
-            #line 23 "..\..\Views\Shared\_Filter.cshtml"
+            #line 21 "..\..\Views\Shared\_Filter.cshtml"
    Write(Html.DropDownList(filter.PropertyName, thelist, String.Empty, new { id = filter.PropertyName, @class = "form-control", onchange = "this.form.submit();" }));
 
             
             #line default
             #line hidden
             
-            #line 23 "..\..\Views\Shared\_Filter.cshtml"
+            #line 21 "..\..\Views\Shared\_Filter.cshtml"
                                                                                                                                                                    
+    }
+    else if (filter.GetType() == typeof(CheckBoxFilter))
+    {
+        var checkBoxFilter = (CheckBoxFilter)filter;
+        
+            
+            #line default
+            #line hidden
+            
+            #line 26 "..\..\Views\Shared\_Filter.cshtml"
+   Write(Html.CheckBox(filter.PropertyName, filter.IsChecked, new { id = filter.PropertyName, @class = "form-control", onchange = "this.form.submit();" }));
+
+            
+            #line default
+            #line hidden
+            
+            #line 26 "..\..\Views\Shared\_Filter.cshtml"
+                                                                                                                                                          
     }
 }
             

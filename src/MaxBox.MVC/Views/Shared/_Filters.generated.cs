@@ -56,6 +56,7 @@ namespace MaxBox.MVC.Views.Shared
             #line 4 "..\..\Views\Shared\_Filters.cshtml"
   
     var pageProcessData = (PageProcessData)ViewBag.PageData;
+    int rowwidth = 12 / pageProcessData.Filters.Count();
 
             
             #line default
@@ -63,7 +64,7 @@ namespace MaxBox.MVC.Views.Shared
 WriteLiteral("\r\n");
 
             
-            #line 7 "..\..\Views\Shared\_Filters.cshtml"
+            #line 8 "..\..\Views\Shared\_Filters.cshtml"
  if (pageProcessData != null)
 {
     if (pageProcessData.Filters.Any())
@@ -85,13 +86,13 @@ WriteLiteral(" class=\"row\"");
 WriteLiteral(">\r\n");
 
             
-            #line 13 "..\..\Views\Shared\_Filters.cshtml"
+            #line 14 "..\..\Views\Shared\_Filters.cshtml"
                 
             
             #line default
             #line hidden
             
-            #line 13 "..\..\Views\Shared\_Filters.cshtml"
+            #line 14 "..\..\Views\Shared\_Filters.cshtml"
                  foreach (var filter in pageProcessData.Filters)
                 {
 
@@ -100,12 +101,21 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("                    <div");
 
-WriteLiteral(" class=\"col-md-4\"");
+WriteAttribute("class", Tuple.Create(" class=\"", 464), Tuple.Create("\"", 488)
+, Tuple.Create(Tuple.Create("", 472), Tuple.Create("col-md-", 472), true)
+            
+            #line 16 "..\..\Views\Shared\_Filters.cshtml"
+, Tuple.Create(Tuple.Create("", 479), Tuple.Create<System.Object, System.Int32>(rowwidth
+            
+            #line default
+            #line hidden
+, 479), false)
+);
 
 WriteLiteral(">\r\n                        <label>");
 
             
-            #line 16 "..\..\Views\Shared\_Filters.cshtml"
+            #line 17 "..\..\Views\Shared\_Filters.cshtml"
                           Write(filter.Label);
 
             
@@ -116,7 +126,7 @@ WriteLiteral("</label>\r\n");
 WriteLiteral("                        ");
 
             
-            #line 17 "..\..\Views\Shared\_Filters.cshtml"
+            #line 18 "..\..\Views\Shared\_Filters.cshtml"
                    Write(Html.Partial("_Filter", (object)filter.Label));
 
             
@@ -125,7 +135,7 @@ WriteLiteral("                        ");
 WriteLiteral("\r\n                    </div>\r\n");
 
             
-            #line 19 "..\..\Views\Shared\_Filters.cshtml"
+            #line 20 "..\..\Views\Shared\_Filters.cshtml"
                 }
 
             
@@ -134,7 +144,7 @@ WriteLiteral("\r\n                    </div>\r\n");
 WriteLiteral("            </div>\r\n        </form>\r\n");
 
             
-            #line 22 "..\..\Views\Shared\_Filters.cshtml"
+            #line 23 "..\..\Views\Shared\_Filters.cshtml"
     }
 }
             
