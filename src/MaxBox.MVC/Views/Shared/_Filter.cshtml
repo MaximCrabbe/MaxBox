@@ -3,14 +3,14 @@
 @using MaxBox.MVC.Models
 @model string
 @{
-    var pageData = (PageProcessData)ViewBag.PageData;
+    var pageData = (PageProcessData) ViewBag.PageData;
     PropertyFilter filter = pageData.Filters.FirstOrDefault(x => x.Label.ToLower() == Model.ToLower());
 }
 @if (filter != null)
 {
-    if (filter.GetType() == typeof(DropDownFilter))
+    if (filter.GetType() == typeof (DropDownFilter))
     {
-        var dropDrownFilter = (DropDownFilter)filter;
+        var dropDrownFilter = (DropDownFilter) filter;
         SelectList listwithselect = null;
         string filterValue = pageData.Query[filter.PropertyName];
         if (filterValue != null)
@@ -18,11 +18,11 @@
             listwithselect = new SelectList(dropDrownFilter.SelectList.Items, dropDrownFilter.SelectList.DataValueField, dropDrownFilter.SelectList.DataTextField, filterValue);
         }
         SelectList thelist = listwithselect ?? dropDrownFilter.SelectList;
-        @Html.DropDownList(filter.PropertyName, thelist, String.Empty, new { id = filter.PropertyName, @class = "form-control", onchange = "this.form.submit();" })
+        @Html.DropDownList(filter.PropertyName, thelist, String.Empty, new {id = filter.PropertyName, @class = "form-control", onchange = "this.form.submit();"})
     }
-    else if (filter.GetType() == typeof(CheckBoxFilter))
+    else if (filter.GetType() == typeof (CheckBoxFilter))
     {
-        var checkBoxFilter = (CheckBoxFilter)filter;
-        @Html.CheckBox(filter.PropertyName, filter.IsChecked, new { id = filter.PropertyName, @class = "form-control", onchange = "this.form.submit();" })
+        var checkBoxFilter = (CheckBoxFilter) filter;
+        @Html.CheckBox(filter.PropertyName, filter.IsChecked, new {id = filter.PropertyName, @class = "form-control", onchange = "this.form.submit();"})
     }
 }

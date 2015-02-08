@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
@@ -11,11 +12,16 @@ namespace MaxBox.Db.Helpers
         {
             if (!areYouSure)
             {
-                throw new Exception("You must be certain to delete all your data!", new Exception("Add the true paramater for the areYouSure bool"));
+                throw new Exception("You must be certain to delete all your data!",
+                    new Exception("Add the true paramater for the areYouSure bool"));
             }
             var context = new TContext();
-            var list = context.Database.SqlQuery<string>("SELECT 'DROP TABLE [' + SCHEMA_NAME(schema_id) + '].[' + name + ']' FROM sys.tables;SELECT 'DROP PROCEDURE [' + SCHEMA_NAME(schema_id) + '].[' + name + ']' FROM sys.procedures;").ToList(); ;
-            var maxloops = list.Count;
+            List<string> list =
+                context.Database.SqlQuery<string>(
+                    "SELECT 'DROP TABLE [' + SCHEMA_NAME(schema_id) + '].[' + name + ']' FROM sys.tables;SELECT 'DROP PROCEDURE [' + SCHEMA_NAME(schema_id) + '].[' + name + ']' FROM sys.procedures;")
+                    .ToList();
+            ;
+            int maxloops = list.Count;
             int currentloops = 0;
             bool wasThereAnError = false;
             do
@@ -25,21 +31,20 @@ namespace MaxBox.Db.Helpers
                     throw new Exception("there was  problem deleting the database");
                 }
                 wasThereAnError = false;
-                foreach (var tabledeletesql in list.ToList())
+                foreach (string tabledeletesql in list.ToList())
                 {
                     try
                     {
                         context.Database.ExecuteSqlCommand(tabledeletesql);
                         list.Remove(tabledeletesql);
                         Debug.WriteLine(tabledeletesql);
-
                     }
                     catch (Exception)
                     {
                         wasThereAnError = true;
                     }
                 }
-            } while (wasThereAnError == true);
+            } while (wasThereAnError);
         }
 
         public void CreateAllTables<TContext>() where TContext : DbContext, new()
@@ -47,9 +52,9 @@ namespace MaxBox.Db.Helpers
             using (var context = new TContext())
             {
                 context.Database.Initialize(true);
-
             }
         }
+
         public void ReCreateTables<TContext>(bool areYouSure = false) where TContext : DbContext, new()
         {
             DeleteAllTables<TContext>(areYouSure);

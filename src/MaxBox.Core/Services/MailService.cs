@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
 using MaxBox.Core.Models;
 
 namespace MaxBox.Core.Services
 {
     public class MailService : IMailService
     {
+        private bool _isInitalized;
         private SmtpClient _smtpClient;
-        private bool _isInitalized = false;
 
         public void Initialize(SmtpClient smtpClient)
         {
@@ -22,7 +19,7 @@ namespace MaxBox.Core.Services
         {
             if (!_isInitalized)
             {
-               throw new Exception("Please use the initialize method first to define a smtp client"); 
+                throw new Exception("Please use the initialize method first to define a smtp client");
             }
             if (mailModel.AllowHtml)
             {
@@ -30,7 +27,7 @@ namespace MaxBox.Core.Services
             }
             var mailMessage = new MailMessage(mailModel.From, mailModel.To, mailModel.Subject, mailModel.Body);
             mailMessage.IsBodyHtml = mailModel.AllowHtml;
-           
+
             _smtpClient.Send(mailMessage);
         }
     }

@@ -25,6 +25,7 @@ namespace MaxBox.MVC.Models
                 CurrentPage = page;
             }
         }
+
         public List<PropertyFilter> Filters { get; set; }
         private string Controller { get; set; }
         private string Action { get; set; }

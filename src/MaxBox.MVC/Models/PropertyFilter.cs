@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MaxBox.MVC.Models
 {
@@ -15,6 +11,7 @@ namespace MaxBox.MVC.Models
             PropertyName = propertyName;
             KeySelector = keySelector;
         }
+
         public DateTime CreatedTime { get; set; }
         public bool HasStringkeys { get; set; }
         public string Label { get; set; }

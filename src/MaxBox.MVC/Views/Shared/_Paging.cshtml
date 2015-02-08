@@ -1,8 +1,7 @@
 ﻿@using System.Diagnostics
-@using System.Linq
 @using MaxBox.MVC.Models
 @{
-    var pageProcessData = (PageProcessData)ViewBag.PageData;
+    var pageProcessData = (PageProcessData) ViewBag.PageData;
 }
 @if (pageProcessData != null)
 {
@@ -10,13 +9,13 @@
     {
         var pageList = new List<int>(pageProcessData.MaxPagination + 1);
         pageList.Add(pageProcessData.CurrentPage);
-        for (int i = 1; i != pageProcessData.MaxPagination / 2 + 1; i++)
+        for (int i = 1; i != pageProcessData.MaxPagination/2 + 1; i++)
         {
             pageList.Add(pageProcessData.CurrentPage - i);
             pageList.Add(pageProcessData.CurrentPage + i);
         }
-        int prefirstpage = pageProcessData.CurrentPage - (pageProcessData.MaxPagination / 2 + 1);
-        int suffixlastpage = pageProcessData.CurrentPage + (pageProcessData.MaxPagination / 2 + 1);
+        int prefirstpage = pageProcessData.CurrentPage - (pageProcessData.MaxPagination/2 + 1);
+        int suffixlastpage = pageProcessData.CurrentPage + (pageProcessData.MaxPagination/2 + 1);
         Debugger.Launch();
         <ul class="pagination">
             @if (pageProcessData.CurrentPage >= pageProcessData.MaxPagination)

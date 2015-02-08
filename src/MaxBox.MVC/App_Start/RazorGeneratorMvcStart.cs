@@ -1,14 +1,20 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
+using MaxBox.MVC.App_Start;
 using RazorGenerator.Mvc;
+using WebActivatorEx;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(MaxBox.MVC.App_Start.RazorGeneratorMvcStart), "Start")]
+[assembly: PostApplicationStartMethod(typeof (RazorGeneratorMvcStart), "Start")]
 
-namespace MaxBox.MVC.App_Start {
-    public static class RazorGeneratorMvcStart {
-        public static void Start() {
-            var engine = new PrecompiledMvcEngine(typeof(RazorGeneratorMvcStart).Assembly) {
+namespace MaxBox.MVC.App_Start
+{
+    public static class RazorGeneratorMvcStart
+    {
+        public static void Start()
+        {
+            var engine = new PrecompiledMvcEngine(typeof (RazorGeneratorMvcStart).Assembly)
+            {
                 UsePhysicalViewsIfNewer = HttpContext.Current.Request.IsLocal
             };
 

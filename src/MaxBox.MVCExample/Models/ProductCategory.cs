@@ -9,8 +9,9 @@ namespace MaxBox.MVCExample.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
+
         public int Gewicht { get; set; }
         public string Naam { get; set; }
-        public virtual List<Product> Producten { get; set; } 
+        public virtual List<Product> Producten { get; set; }
     }
 }

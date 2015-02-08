@@ -26,32 +26,32 @@ namespace MaxBox.MVCExample.Migrations
                 if (!context.Users.Any(x => x.UserName == userName))
                 {
                     var userManager = new UserManager<User>(new UserStore<User>(context));
-                    var user = new User { UserName = userName };
+                    var user = new User {UserName = userName};
                     userManager.Create(user, password);
                     userRoles.ToList().ForEach(x => userManager.AddToRole(user.Id, x));
                 }
             };
             //roles gedeelte
-            List<string> roles = new[] { "Admin", "Klant" }.ToList();
+            List<string> roles = new[] {"Admin", "Klant"}.ToList();
             roles.ForEach(createRole);
 
             //user gedeelte
-            createUserWithRoles("Maxim", "password123", new[] { "Admin" });
-            createUserWithRoles("Admin", "password123", new[] { "Admin" });
-            createUserWithRoles("TestKlant1", "password123", new[] { "Klant" });
-            createUserWithRoles("TestKlant2", "password123", new[] { "Klant" });
-            createUserWithRoles("TestKlant3", "password123", new[] { "Klant" });
+            createUserWithRoles("Maxim", "password123", new[] {"Admin"});
+            createUserWithRoles("Admin", "password123", new[] {"Admin"});
+            createUserWithRoles("TestKlant1", "password123", new[] {"Klant"});
+            createUserWithRoles("TestKlant2", "password123", new[] {"Klant"});
+            createUserWithRoles("TestKlant3", "password123", new[] {"Klant"});
 
             //Categorieen
             context.ProductsCategories.AddOrUpdate(x => x.Naam, new[]
             {
-                new ProductCategory {Id = 1,Naam = "Dranken", Gewicht = 0},
-                new ProductCategory {Id = 2,Naam = "Voorgerechten", Gewicht = 10},
-                new ProductCategory {Id = 3,Naam = "Pasta", Gewicht = 15},
-                new ProductCategory {Id = 4,Naam = "Pasta al forno", Gewicht = 20},
-                new ProductCategory {Id = 5,Naam = "Salades", Gewicht = 25},
-                new ProductCategory {Id = 6,Naam = "KinderMenu's", Gewicht = 30},
-                new ProductCategory {Id = 7,Naam = "Desserten", Gewicht = 35}
+                new ProductCategory {Id = 1, Naam = "Dranken", Gewicht = 0},
+                new ProductCategory {Id = 2, Naam = "Voorgerechten", Gewicht = 10},
+                new ProductCategory {Id = 3, Naam = "Pasta", Gewicht = 15},
+                new ProductCategory {Id = 4, Naam = "Pasta al forno", Gewicht = 20},
+                new ProductCategory {Id = 5, Naam = "Salades", Gewicht = 25},
+                new ProductCategory {Id = 6, Naam = "KinderMenu's", Gewicht = 30},
+                new ProductCategory {Id = 7, Naam = "Desserten", Gewicht = 35}
             });
             context.SaveChanges();
             List<ProductCategory> productcategorien = context.ProductsCategories.ToList();
@@ -94,7 +94,6 @@ namespace MaxBox.MVCExample.Migrations
                     IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
                 },
-
                 new Product
                 {
                     Afkorting = "SPR",
@@ -103,36 +102,35 @@ namespace MaxBox.MVCExample.Migrations
                     IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
                 },
-                   new Product
+                new Product
                 {
                     Afkorting = "ITE",
                     Naam = "Ice Tea",
                     Prijs = 1.6,
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
                 },
-                     new Product
+                new Product
                 {
                     Afkorting = "SAG",
                     Naam = "Schweppes Agrum",
                     Prijs = 1.6,
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
                 },
-                     new Product
+                new Product
                 {
                     Afkorting = "MMA",
                     Naam = "Minute Maid",
                     Prijs = 1.6,
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
                 },
-
-                      new Product
+                new Product
                 {
                     Afkorting = "PWA",
                     Naam = "Plat Water",
                     Prijs = 1.6,
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
                 },
-                       new Product
+                new Product
                 {
                     Afkorting = "BWA",
                     Naam = "Bruiswater",
@@ -140,28 +138,28 @@ namespace MaxBox.MVCExample.Migrations
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id,
                     Status = Status.SuperDiscount
                 },
-                         new Product
+                new Product
                 {
                     Afkorting = "FRI",
                     Naam = "Fristi",
                     Prijs = 1.6,
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
                 },
-                         new Product
+                new Product
                 {
                     Afkorting = "CEC",
                     Naam = "Cecemel",
                     Prijs = 1.6,
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
                 },
-                          new Product
+                new Product
                 {
                     Afkorting = "FFA",
                     Naam = "Fles Fanta",
                     Prijs = 3.5,
                     CategorieId = productcategorien.First(x => x.Naam == "Dranken").Id
                 },
-                          new Product
+                new Product
                 {
                     Afkorting = "FCC",
                     Naam = "Fles Coca-Cola",
@@ -187,9 +185,9 @@ namespace MaxBox.MVCExample.Migrations
                     Prijs = 5.99,
                     IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "KinderMenu's").Id
-                 },
+                },
 
-                 //Voorgerechten
+                //Voorgerechten
 
                 new Product
                 {
@@ -208,7 +206,6 @@ namespace MaxBox.MVCExample.Migrations
                     IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Voorgerechten").Id
                 },
-
                 new Product
                 {
                     Afkorting = "BRU",
@@ -222,8 +219,7 @@ namespace MaxBox.MVCExample.Migrations
                     Naam = "Carpaccio di salmone",
                     Prijs = 5.35,
                     CategorieId = productcategorien.First(x => x.Naam == "Voorgerechten").Id
-                } ,
-
+                },
                 new Product
                 {
                     Afkorting = "SCA",
@@ -232,7 +228,6 @@ namespace MaxBox.MVCExample.Migrations
                     CategorieId = productcategorien.First(x => x.Naam == "Voorgerechten").Id
                 }
                 ,
-
                 new Product
                 {
                     Afkorting = "ZUP",
@@ -240,8 +235,7 @@ namespace MaxBox.MVCExample.Migrations
                     Prijs = 3.50,
                     IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Voorgerechten").Id
-                } ,
-
+                },
                 new Product
                 {
                     Afkorting = "TIR",
@@ -249,24 +243,20 @@ namespace MaxBox.MVCExample.Migrations
                     Prijs = 3.50,
                     CategorieId = productcategorien.First(x => x.Naam == "Desserten").Id
                 },
-
-                 new Product
+                new Product
                 {
                     Afkorting = "PCO",
                     Naam = "Panna Cotta",
                     Prijs = 3.50,
                     CategorieId = productcategorien.First(x => x.Naam == "Desserten").Id
                 },
-
-                  new Product
+                new Product
                 {
                     Afkorting = "MAC",
                     Naam = "Mousse Al Chocolate",
                     Prijs = 3.50,
                     CategorieId = productcategorien.First(x => x.Naam == "Desserten").Id
                 },
-
-
                 new Product
                 {
                     Afkorting = "CAP",
@@ -301,7 +291,7 @@ namespace MaxBox.MVCExample.Migrations
                     IsBeschikbaar = false,
                     CategorieId = productcategorien.First(x => x.Naam == "Salades").Id
                 }
-                ,     
+                ,
                 new Product
                 {
                     Afkorting = "CAC",

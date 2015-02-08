@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using MaxBox.MVC.Models;
-using MaxBox.MVC.Views.Shared;
 
 namespace MaxBox.MVC
 {
@@ -10,7 +9,7 @@ namespace MaxBox.MVC
         {
             if (Session["PagingData"] != null)
             {
-                var pageProcessService = (PageProcessService)Session["PagingData"];
+                var pageProcessService = (PageProcessService) Session["PagingData"];
                 pageProcessService.Save(ViewBag);
                 Session["PagingData"] = null;
             }

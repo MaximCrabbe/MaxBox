@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MaxBox.MVCExample.Models.Product>
+﻿@using MaxBox.MVCExample.Models
+@model IEnumerable<MaxBox.MVCExample.Models.Product>
 
 @{
     ViewBag.Title = "Index";
@@ -26,27 +27,28 @@
             @Html.DisplayNameFor(model => model.Status)
         </th>
     </tr>
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Naam)
-        </td>
-        <td>
-            €@Html.DisplayFor(modelItem => item.Prijs)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Naam)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Afkorting)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsBeschikbaar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-    </tr>
-}
+    @foreach (Product item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Naam)
+            </td>
+            <td>
+                €@Html.DisplayFor(modelItem => item.Prijs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Afkorting)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsBeschikbaar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+        </tr>
+    }
 </table>
 @Html.Partial("_Paging")

@@ -19,37 +19,42 @@ namespace MaxBox.MVC.Services
                     var item = TypeFactory.Default.CreateInstance<PageProcessService>();
                     HttpContext.Current.Session["PagingData"] = item;
                 }
-                return (PageProcessService)HttpContext.Current.Session["PagingData"];
+                return (PageProcessService) HttpContext.Current.Session["PagingData"];
             }
-            set
-            {
-                HttpContext.Current.Session["PagingData"] = value;
-            }
+            set { HttpContext.Current.Session["PagingData"] = value; }
         }
-        public static IQueryable<T>EnablePaging<T>(this IQueryable<T> queryable, int itemsPerPage = 10, int maxPagination = 6)
+
+        public static IQueryable<T> EnablePaging<T>(this IQueryable<T> queryable, int itemsPerPage = 10,
+            int maxPagination = 6)
         {
             PageProcessService.SetPaging(itemsPerPage, maxPagination);
             return PageProcessService.ProcessPaging(queryable);
         }
-        public static IQueryable<T> EnableFilterFor<T, Y, TKey>(this IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, IEnumerable<Y> filterlist, string valuefield = "Id", string displayfield = "Name", string label = null)
+
+        public static IQueryable<T> EnableFilterFor<T, Y, TKey>(this IQueryable<T> queryable,
+            Expression<Func<T, TKey>> keySelector, IEnumerable<Y> filterlist, string valuefield = "Id",
+            string displayfield = "Name", string label = null)
             where Y : class
             where T : class
         {
             PageProcessService.MakeFilter(queryable, keySelector, filterlist, valuefield, displayfield, label);
             return PageProcessService.ProcessFilter(queryable, keySelector);
         }
-        public static IQueryable<T> EnableFilterFor<T>(this IQueryable<T> queryable, Expression<Func<T, bool>> keySelector, string label = null)
+
+        public static IQueryable<T> EnableFilterFor<T>(this IQueryable<T> queryable,
+            Expression<Func<T, bool>> keySelector, string label = null)
             where T : class
         {
-           PageProcessService.MakeBoolFilter(queryable, keySelector, label);
+            PageProcessService.MakeBoolFilter(queryable, keySelector, label);
             return PageProcessService.ProcessFilter(queryable, keySelector);
         }
-        public static IQueryable<T> EnableFilterFor<T, TKey>(this IQueryable<T> queryable, Expression<Func<T, TKey>> keySelector, string label = null) 
-      where T : class where TKey : struct 
+
+        public static IQueryable<T> EnableFilterFor<T, TKey>(this IQueryable<T> queryable,
+            Expression<Func<T, TKey>> keySelector, string label = null)
+            where T : class where TKey : struct
         {
             PageProcessService.MakeEnumFilter(queryable, keySelector, label);
             return PageProcessService.ProcessFilter(queryable, keySelector);
         }
-
     }
 }

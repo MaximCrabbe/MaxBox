@@ -8,21 +8,35 @@ namespace MaxBox.Test.Services
     [TestClass]
     public class RngServiceUnitTest
     {
-        [TestMethod]
-        public void GenerateString()
+        private IRngService _rngService;
+
+        [TestInitialize]
+        public void Init()
         {
-            var service = new RngService();
-            
-            var tenlengthstring = service.GenerateString(10);
+            _rngService = new RngService();
+        }
+
+        [TestMethod]
+        public void CheckGeneratedStringLength()
+        {
+            string tenlengthstring = _rngService.GenerateString(10);
             Assert.AreEqual(tenlengthstring.Count(), 10);
+        }
 
-            var firststring = service.GenerateString(5);
-            var secondstring = service.GenerateString(5);
+        [TestMethod]
+        public void AreThe2StringsTheSame()
+        {
+            string firststring = _rngService.GenerateString(5);
+            string secondstring = _rngService.GenerateString(5);
             Assert.AreNotEqual(firststring, secondstring);
+        }
 
-            var onlynumeric = service.GenerateString(5, false, true);
+        [TestMethod]
+        public void CheckOrOnlyNumerHasNoOtherChars()
+        {
+            string onlynumeric = _rngService.GenerateString(5, false, false, numeric: true);
             int numeric = Convert.ToInt32(onlynumeric);
-            Assert.IsInstanceOfType(numeric, typeof(int));
+            Assert.IsInstanceOfType(numeric, typeof (int));
         }
     }
 }

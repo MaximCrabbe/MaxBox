@@ -14,13 +14,16 @@ namespace MaxBox.MVCExample.Migrations
             Database.Log = LogAndStepThrough;
 #endif
         }
+
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductsCategories { get; set; }
+
         [DebuggerStepThrough]
-        void LogAndStepThrough(string log)
+        private void LogAndStepThrough(string log)
         {
             Debug.WriteLine(log);
         }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductCategory> ProductsCategories { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

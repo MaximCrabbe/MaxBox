@@ -1,5 +1,4 @@
 using System.Data.Entity.Migrations;
-using MaxBox.MVCExample.Models;
 
 namespace MaxBox.MVCExample.Migrations
 {

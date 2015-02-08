@@ -1,9 +1,8 @@
-﻿@using System.Linq
-@using System.Web.Mvc.Html
+﻿@using System.Web.Mvc.Html
 @using MaxBox.MVC.Models
 @{
-    var pageProcessData = (PageProcessData)ViewBag.PageData;
-    int rowwidth = 12 / pageProcessData.Filters.Count();
+    var pageProcessData = (PageProcessData) ViewBag.PageData;
+    int rowwidth = 12/pageProcessData.Filters.Count();
 }
 @if (pageProcessData != null)
 {
@@ -11,11 +10,11 @@
     {
         <form method="GET" class="well">
             <div class="row">
-                @foreach (var filter in pageProcessData.Filters)
+                @foreach (PropertyFilter filter in pageProcessData.Filters)
                 {
                     <div class="col-md-@rowwidth">
                         <label>@filter.Label</label>
-                        @Html.Partial("_Filter", (object)filter.Label)
+                        @Html.Partial("_Filter", filter.Label)
                     </div>
                 }
             </div>

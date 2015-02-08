@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace MaxBox.MVC.Models
@@ -14,7 +11,9 @@ namespace MaxBox.MVC.Models
             : this(new SelectList(options), label, propertyName, keySelector)
         {
         }
-        public DropDownFilter(SelectList list, string label, string propertyName, Expression keySelector) : base(label, propertyName, keySelector)
+
+        public DropDownFilter(SelectList list, string label, string propertyName, Expression keySelector)
+            : base(label, propertyName, keySelector)
         {
             Label = label;
             PropertyName = propertyName;
@@ -22,7 +21,7 @@ namespace MaxBox.MVC.Models
             SelectList = list;
             CreatedTime = DateTime.Now;
         }
-   
+
         public SelectList SelectList { get; set; }
     }
 }
